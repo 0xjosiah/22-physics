@@ -25,7 +25,14 @@ gui.add(debugObject, 'createSphere')
 
 debugObject.createCube = () => {
     createCube (
-
+        Math.random(),
+        Math.random(),
+        Math.random(),
+        {
+            x: (Math.random() - .5) * 1.5,
+            y: (Math.random()) * 1.5,
+            z: (Math.random() - .5) * 1.5
+        }
     )
 }
 gui.add(debugObject, 'createCube')
@@ -202,12 +209,14 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const objectsToUpdate = []
 
-const sphereGeometry = new THREE.SphereGeometry(1, 20, 20)
 const material = new THREE.MeshStandardMaterial({
     metalness: .3,
     roughness: .4,
     envMap: environmentMapTexture
 })
+
+// Sphere creation
+const sphereGeometry = new THREE.SphereGeometry(1, 20, 20)
 
 const createSphere = (radius, position) => {
     // Three.js mesh
@@ -236,17 +245,18 @@ const createSphere = (radius, position) => {
 }
 // createSphere(.5, {x: 0, y: 3, z: 0})
 
+// Cube creation
 const cubeGeometry = new THREE.BoxGeometry(.5, .5, .5)
 
-const createCube = (size, position) => {
+const createCube = (width, height, depth, position) => {
     const mesh = new THREE.Mesh( cubeGeometry, material )
-    mesh.scale.set(size, size, size)
+    mesh.scale.set(width, height, depth)
     mesh.castShadow = true
     mesh.position.copy(position)
     scene.add(mesh)
 
     // Cannon.js body
-    const shape = new CANNON.Box(.5, .5, .5)
+    const shape = new CANNON.Box(new CANNON.Vec3(width * .5, height * .5, depth * .5))
     const body = new CANNON.Body({
         mass: 1,
         position: new CANNON.Vec3(0, 3, 0),
@@ -282,6 +292,7 @@ const tick = () =>
 
     for(const obj of objectsToUpdate) {
         obj.mesh.position.copy(obj.body.position)
+        obj.mesh.quaternion.copy(obj.body.quaternion)
     }
 
     // Update sphere
