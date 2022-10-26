@@ -55,6 +55,7 @@ const floorShape = new CANNON.Plane()
 const floorBody = new CANNON.Body()
 floorBody.mass = 0 // this tells cannon js that the object is immovable
 floorBody.addShape(floorShape) // this allows you to add multiple shapes to a body, making the composed object one rigid body
+floorBody.quaternion.setFromAxisAngle( new CANNON.Vec3( -1, 0, 0), Math.PI * .5 )
 world.addBody(floorBody)
 
 /**
