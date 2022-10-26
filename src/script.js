@@ -203,7 +203,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 const objectsToUpdate = []
 
 const sphereGeometry = new THREE.SphereGeometry(1, 20, 20)
-const sphereMaterial = new THREE.MeshStandardMaterial({
+const material = new THREE.MeshStandardMaterial({
     metalness: .3,
     roughness: .4,
     envMap: environmentMapTexture
@@ -211,7 +211,7 @@ const sphereMaterial = new THREE.MeshStandardMaterial({
 
 const createSphere = (radius, position) => {
     // Three.js mesh
-    const mesh = new THREE.Mesh( sphereGeometry, sphereMaterial )
+    const mesh = new THREE.Mesh( sphereGeometry, material )
     mesh.scale.set(radius, radius, radius)
     mesh.castShadow = true
     mesh.position.copy(position)
@@ -235,6 +235,10 @@ const createSphere = (radius, position) => {
     })
 }
 // createSphere(.5, {x: 0, y: 3, z: 0})
+
+const createCube = (size, position) => {
+    const mesh = new THREE.Mesh( cubeGeometry, material )
+}
 
 
 /**
