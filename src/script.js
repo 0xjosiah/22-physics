@@ -15,9 +15,9 @@ debugObject.createSphere = () => {
     createSphere(
         Math.random(),
         {
-            x: (Math.random()- .5) * 1.5,
-            y: (Math.random()- .5) * 1.5,
-            z: (Math.random()- .5) * 1.5
+            x: (Math.random() - .5) * 1.5,
+            y: (Math.random()) * 1.5,
+            z: (Math.random() - .5) * 1.5
         }
     )
 }
@@ -195,16 +195,17 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const objectsToUpdate = []
 
+const sphereGeometry = new THREE.SphereGeometry(1, 20, 20)
+const sphereMaterial = new THREE.MeshStandardMaterial({
+    metalness: .3,
+    roughness: .4,
+    envMap: environmentMapTexture
+})
+
 const createSphere = (radius, position) => {
     // Three.js mesh
-    const mesh = new THREE.Mesh(
-        new THREE.SphereGeometry(radius, 20, 20),
-        new THREE.MeshStandardMaterial({
-            metalness: .3,
-            roughness: .4,
-            envMap: environmentMapTexture
-        })
-    )
+    const mesh = new THREE.Mesh( sphereGeometry, sphereMaterial )
+    mesh.scale.set(radius, radius, radius)
     mesh.castShadow = true
     mesh.position.copy(position)
     scene.add(mesh)
