@@ -9,6 +9,19 @@ import CANNON from 'cannon'
  * Debug
  */
 const gui = new dat.GUI()
+const debugObject = {}
+
+debugObject.createSphere = () => {
+    createSphere(
+        Math.random(),
+        {
+            x: (Math.random()- .5) * 1.5,
+            y: (Math.random()- .5) * 1.5,
+            z: (Math.random()- .5) * 1.5
+        }
+    )
+}
+gui.add(debugObject, 'createSphere')
 
 /**
  * Base
