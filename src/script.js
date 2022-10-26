@@ -50,6 +50,13 @@ const sphereBody = new CANNON.Body({
 })
 world.addBody(sphereBody)
 
+// Floor
+const floorShape = new CANNON.Plane()
+const floorBody = new CANNON.Body()
+floorBody.mass = 0 // this tells cannon js that the object is immovable
+floorBody.addShape(floorShape) // this allows you to add multiple shapes to a body, making the composed object one rigid body
+world.addBody(floorBody)
+
 /**
  * Test sphere
  */
