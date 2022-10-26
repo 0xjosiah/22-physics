@@ -42,18 +42,23 @@ const world = new CANNON.World()
 world.gravity.set(0, -9.82, 0)
 
 // Materials
-const concreteMaterial = new CANNON.Material('concrete')
-const plasticMaterial = new CANNON.Material('plastic')
+// const concreteMaterial = new CANNON.Material('concrete')
+// const plasticMaterial = new CANNON.Material('plastic')
+const defaultMaterial = new CANNON.Material('default') // this simplifies materials, do this unless there is a need for various different contactMaterials
 
-const concretePlasticContactMaterial = new CANNON.ContactMaterial(
-    concreteMaterial, 
-    plasticMaterial, 
+// const concretePlasticContactMaterial = new CANNON.ContactMaterial(
+const defaultContactMaterial = new CANNON.ContactMaterial(
+    // concreteMaterial,
+    // plasticMaterial,
+    defaultMaterial,
+    defaultMaterial,
     {
         friction: .1,
         restitution: .7
     }
 )
-world.addContactMaterial(concretePlasticContactMaterial)
+world.addContactMaterial(defaultContactMaterial)
+world.defaultContactMaterial = defaultContactMaterial
 
 // Sphere
 const sphereShape = new CANNON.Sphere(.5)
@@ -61,7 +66,7 @@ const sphereBody = new CANNON.Body({
     mass: 1,
     position: new CANNON.Vec3(0, 3, 0),
     shape: sphereShape,
-    material: plasticMaterial
+    // material: defaultMaterial
 })
 world.addBody(sphereBody)
 
@@ -71,7 +76,7 @@ const floorBody = new CANNON.Body()
 floorBody.mass = 0 // this tells cannon js that the object is immovable
 floorBody.addShape(floorShape) // this allows you to add multiple shapes to a body, making the composed object one rigid body
 floorBody.quaternion.setFromAxisAngle( new CANNON.Vec3( -1, 0, 0), Math.PI * .5 )
-floorBody.material = concreteMaterial
+// floorBody.material = defaultMaterial
 world.addBody(floorBody)
 
 
