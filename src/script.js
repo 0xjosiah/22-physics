@@ -23,6 +23,13 @@ debugObject.createSphere = () => {
 }
 gui.add(debugObject, 'createSphere')
 
+debugObject.createCube = () => {
+    createCube (
+
+    )
+}
+gui.add(debugObject, 'createCube')
+
 /**
  * Base
  */
@@ -227,7 +234,7 @@ const createSphere = (radius, position) => {
         body
     })
 }
-createSphere(.5, {x: 0, y: 3, z: 0})
+// createSphere(.5, {x: 0, y: 3, z: 0})
 
 
 /**
