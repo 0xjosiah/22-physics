@@ -246,7 +246,7 @@ const createSphere = (radius, position) => {
 // createSphere(.5, {x: 0, y: 3, z: 0})
 
 // Cube creation
-const cubeGeometry = new THREE.BoxGeometry(.5, .5, .5)
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
 
 const createCube = (width, height, depth, position) => {
     const mesh = new THREE.Mesh( cubeGeometry, material )
