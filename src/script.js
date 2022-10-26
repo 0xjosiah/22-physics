@@ -236,8 +236,31 @@ const createSphere = (radius, position) => {
 }
 // createSphere(.5, {x: 0, y: 3, z: 0})
 
+const cubeGeometry = new THREE.BoxGeometry(.5, .5, .5)
+
 const createCube = (size, position) => {
     const mesh = new THREE.Mesh( cubeGeometry, material )
+    mesh.scale.set(size, size, size)
+    mesh.castShadow = true
+    mesh.position.copy(position)
+    scene.add(mesh)
+
+    // Cannon.js body
+    const shape = new CANNON.Box(.5, .5, .5)
+    const body = new CANNON.Body({
+        mass: 1,
+        position: new CANNON.Vec3(0, 3, 0),
+        shape,
+        material: defaultMaterial
+    })
+    body.position.copy(position)
+    world.addBody(body)
+
+    // Save in objectsToUpdate
+    objectsToUpdate.push({
+        mesh,
+        body
+    })
 }
 
 
