@@ -47,6 +47,14 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 /**
+ * Sounds
+ */
+const hitSound = new Audio('/sounds/hit.mp3')
+const playHitSound = () => {
+    hitSound.play()
+}
+
+/**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
@@ -267,6 +275,7 @@ const createCube = (width, height, depth, position) => {
         material: defaultMaterial
     })
     body.position.copy(position)
+    body.addEventListener('collide', playHitSound)
     world.addBody(body)
 
     // Save in objectsToUpdate
