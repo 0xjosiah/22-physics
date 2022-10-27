@@ -37,6 +37,19 @@ debugObject.createCube = () => {
 }
 gui.add(debugObject, 'createCube')
 
+debugObject.reset = () => {
+    for(const obj of objectsToUpdate) {
+        // Remove
+        obj.body.removeEventListener('collide', playHitSound)
+        world.removeBody(obj.body)
+
+        // Remove mesh
+        scene.remove(obj.mesh)
+    }
+    objectsToUpdate = []
+}
+gui.add(debugObject, 'reset')
+
 /**
  * Base
  */
