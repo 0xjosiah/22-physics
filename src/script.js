@@ -50,9 +50,13 @@ const scene = new THREE.Scene()
  * Sounds
  */
 const hitSound = new Audio('/sounds/hit.mp3')
+let maxStrength = 0
 const playHitSound = (collision) => {
     const impactStrength = collision.contact.getImpactVelocityAlongNormal()
-    if(impactStrength > 1.5) {
+    console.log(impactStrength);
+    if(impactStrength > .75) {
+        if(impactStrength > maxStrength) maxStrength = impactStrength
+        hitSound.volume = impactStrength / maxStrength
         hitSound.currentTime = 0
         hitSound.play()
     }
