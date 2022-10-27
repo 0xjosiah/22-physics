@@ -53,7 +53,6 @@ const hitSound = new Audio('/sounds/hit.mp3')
 let maxStrength = 0
 const playHitSound = (collision) => {
     const impactStrength = collision.contact.getImpactVelocityAlongNormal()
-    console.log(impactStrength);
     if(impactStrength > .75) {
         if(impactStrength > maxStrength) maxStrength = impactStrength
         hitSound.volume = impactStrength / maxStrength
@@ -254,6 +253,7 @@ const createSphere = (radius, position) => {
         material: defaultMaterial
     })
     body.position.copy(position)
+    body.addEventListener('collide', playHitSound)
     world.addBody(body)
 
     // Save in objectsToUpdate
