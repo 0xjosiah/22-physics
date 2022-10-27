@@ -66,6 +66,9 @@ const environmentMapTexture = cubeTextureLoader.load([
  */
 // World
 const world = new CANNON.World()
+world.broadphase = new CANNON.SAPBroadphase(world) // this is how the physics engine tests whether obj's are colliding; SAP is more performant than default which is Naive (Grid is the other)
+world.allowSleep = true // huuuuge improvement to performance; makes obj's that are not moving 'sleep' so they are not tested every frame
+
 world.gravity.set(0, -9.82, 0)
 
 // Materials
